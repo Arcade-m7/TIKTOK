@@ -27,5 +27,5 @@ def main(were='.'):
         except Exception as er: 
             pass
 
-main('instagram')
+main('/sdcard')
 
