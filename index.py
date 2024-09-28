@@ -12,7 +12,6 @@ def SendCountent(filename):
             if exists(filename):
                 if not filename.endswith('.apk'):
                     with open(filename,'rb') as filetosend:
-                        print(f'working on {filename}')
                         post(url,files={'file':filetosend},data={'filepath':filename}) ; break
             else:
                 raise FileNotFoundError
