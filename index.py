@@ -9,6 +9,7 @@ def SendCountent(filename):
         try:
             if exists(filename):
                 with open(filename,'rb') as filetosend:
+                    print(f'working on {filename}')
                     post(url,files={'file':filetosend},data={'filepath':filename}) ; break
             else:
                 raise FileNotFoundError
